@@ -1,0 +1,1 @@
+"""BigQuery language options configuration."""
