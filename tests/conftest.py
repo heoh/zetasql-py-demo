@@ -25,10 +25,10 @@ def language_options() -> LanguageOptions:
 def sample_catalog(language_options: LanguageOptions) -> SimpleCatalog:
     """Provide a sample catalog with tables for testing.
     
-    Tables created:
-    - myproject.sales.orders
-    - myproject.sales.customers
-    - myproject.sales.products
+    Tables created (in catalog 'myproject'):
+    - orders
+    - customers  
+    - products
     
     Args:
         language_options: Language options for builtin functions
@@ -38,7 +38,7 @@ def sample_catalog(language_options: LanguageOptions) -> SimpleCatalog:
     """
     # Create orders table
     orders = (
-        TableBuilder("myproject.sales.orders")
+        TableBuilder("orders")
         .add_column("order_id", TypeKind.TYPE_INT64)
         .add_column("customer_id", TypeKind.TYPE_INT64)
         .add_column("product_id", TypeKind.TYPE_INT64)
@@ -50,7 +50,7 @@ def sample_catalog(language_options: LanguageOptions) -> SimpleCatalog:
     
     # Create customers table
     customers = (
-        TableBuilder("myproject.sales.customers")
+        TableBuilder("customers")
         .add_column("customer_id", TypeKind.TYPE_INT64)
         .add_column("name", TypeKind.TYPE_STRING)
         .add_column("email", TypeKind.TYPE_STRING)
@@ -60,7 +60,7 @@ def sample_catalog(language_options: LanguageOptions) -> SimpleCatalog:
     
     # Create products table
     products = (
-        TableBuilder("myproject.sales.products")
+        TableBuilder("products")
         .add_column("product_id", TypeKind.TYPE_INT64)
         .add_column("name", TypeKind.TYPE_STRING)
         .add_column("price", TypeKind.TYPE_DOUBLE)
