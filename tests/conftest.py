@@ -9,16 +9,17 @@ from zetasql.types import (
     TypeKind,
     ZetaSQLBuiltinFunctionOptions,
 )
+from src.zetasql_demo.options.bigquery_options import get_bigquery_language_options
 
 
 @pytest.fixture
 def language_options() -> LanguageOptions:
-    """Provide LanguageOptions with maximum features.
+    """Provide BigQuery-compatible LanguageOptions.
     
     Returns:
-        Configured LanguageOptions
+        Configured BigQuery LanguageOptions
     """
-    return LanguageOptions.maximum_features()
+    return get_bigquery_language_options()
 
 
 @pytest.fixture

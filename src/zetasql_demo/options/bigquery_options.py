@@ -4,7 +4,7 @@ Python port of BigQueryLanguageOptions.java from zetasql-toolkit.
 Enables 80+ BigQuery-specific language features and statement kinds.
 """
 
-from zetasql.types import LanguageOptions, LanguageFeature, ResolvedNodeKind
+from zetasql.types import LanguageOptions, LanguageFeature, ResolvedNodeKind, NameResolutionMode, ProductMode
 
 
 def get_bigquery_language_options() -> LanguageOptions:
@@ -19,6 +19,9 @@ def get_bigquery_language_options() -> LanguageOptions:
         Configured LanguageOptions for BigQuery SQL dialect
     """
     options = LanguageOptions()
+
+    options.name_resolution_mode = NameResolutionMode.NAME_RESOLUTION_DEFAULT
+    options.product_mode = ProductMode.PRODUCT_EXTERNAL
 
     options.enabled_language_features = [
         LanguageFeature.FEATURE_ALLOW_MISSING_PATH_EXPRESSION_IN_ALTER_DDL,

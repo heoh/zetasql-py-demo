@@ -11,22 +11,23 @@ from zetasql.types import (
     TypeKind,
     ZetaSQLBuiltinFunctionOptions,
 )
+from ..options.bigquery_options import get_bigquery_language_options
 
 
 def create_sample_catalog() -> SimpleCatalog:
     """Create sample catalog with BigQuery-style tables.
     
-    Creates the following tables:
-    - myproject.sales.orders: Order transaction data
-    - myproject.sales.customers: Customer information
-    - myproject.sales.products: Product catalog
+    Creates the following tables in catalog 'myproject':
+    - orders: Order transaction data
+    - customers: Customer information
+    - products: Product catalog
     
     Returns:
-        SimpleCatalog with sample tables and builtin functions
+        SimpleCatalog with sample tables and BigQuery builtin functions
     """
     # Create orders table
     orders = (
-        TableBuilder("myproject.sales.orders")
+        TableBuilder("orders")
         .add_column("order_id", TypeKind.TYPE_INT64)
         .add_column("customer_id", TypeKind.TYPE_INT64)
         .add_column("product_id", TypeKind.TYPE_INT64)
@@ -38,7 +39,7 @@ def create_sample_catalog() -> SimpleCatalog:
     
     # Create customers table
     customers = (
-        TableBuilder("myproject.sales.customers")
+        TableBuilder("customers")
         .add_column("customer_id", TypeKind.TYPE_INT64)
         .add_column("name", TypeKind.TYPE_STRING)
         .add_column("email", TypeKind.TYPE_STRING)
@@ -48,7 +49,7 @@ def create_sample_catalog() -> SimpleCatalog:
     
     # Create products table
     products = (
-        TableBuilder("myproject.sales.products")
+        TableBuilder("products")
         .add_column("product_id", TypeKind.TYPE_INT64)
         .add_column("name", TypeKind.TYPE_STRING)
         .add_column("price", TypeKind.TYPE_DOUBLE)
@@ -56,8 +57,8 @@ def create_sample_catalog() -> SimpleCatalog:
         .build()
     )
     
-    # Get language options with maximum features for builtin functions
-    lang_opts = LanguageOptions.maximum_features()
+    # Get BigQuery language options for builtin functions
+    lang_opts = get_bigquery_language_options()
     builtin_opts = ZetaSQLBuiltinFunctionOptions(language_options=lang_opts)
     
     # Build catalog with all tables and builtin functions
