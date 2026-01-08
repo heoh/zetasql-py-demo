@@ -789,7 +789,9 @@ class ColumnLineageExtractor:
         
         # Process UPDATE SET items
         for update_item in stmt.update_item_list:
-            target_column = update_item.target
+            target_column_ref = update_item.target
+            # target is a ResolvedColumnRef, get the actual column
+            target_column = target_column_ref.column
             target_entity = ColumnEntity(target_table, target_column.name)
             
             # Find parents from the SET expression
@@ -826,7 +828,9 @@ class ColumnLineageExtractor:
             if when_clause.action_type == 1:  # UPDATE
                 if hasattr(when_clause, 'update_item_list'):
                     for update_item in when_clause.update_item_list:
-                        target_column = update_item.target
+                        target_column_ref = update_item.target
+                        # target is a ResolvedColumnRef, get the actual column
+                        target_column = target_column_ref.column
                         target_entity = ColumnEntity(target_table, target_column.name)
                         
                         if update_item.set_value is not None:
