@@ -74,6 +74,35 @@ def create_sample_catalog(language_options: LanguageOptions) -> SimpleCatalog:
         .build()
     )
     
+    # product_catalog table (for lineage tests)
+    product_catalog_table = (
+        TableBuilder("product_catalog")
+        .add_column("product_id", TypeKind.TYPE_STRING)
+        .add_column("title", TypeKind.TYPE_STRING)
+        .add_column("comment", TypeKind.TYPE_STRING)
+        .add_column("price", TypeKind.TYPE_DOUBLE)
+        .build()
+    )
+    
+    # product_catalog_staging table (for INSERT tests)
+    product_catalog_staging_table = (
+        TableBuilder("product_catalog_staging")
+        .add_column("product_id", TypeKind.TYPE_STRING)
+        .add_column("title", TypeKind.TYPE_STRING)
+        .add_column("comment", TypeKind.TYPE_STRING)
+        .add_column("price", TypeKind.TYPE_DOUBLE)
+        .build()
+    )
+    
+    # sales table (for JOIN and aggregate tests)
+    sales_table = (
+        TableBuilder("sales")
+        .add_column("product_id", TypeKind.TYPE_STRING)
+        .add_column("quantity", TypeKind.TYPE_INT64)
+        .add_column("price", TypeKind.TYPE_DOUBLE)
+        .build()
+    )
+    
     # Build catalog with builtin functions
     builtin_opts = ZetaSQLBuiltinFunctionOptions(
         language_options=language_options
@@ -85,6 +114,9 @@ def create_sample_catalog(language_options: LanguageOptions) -> SimpleCatalog:
         .add_table(customers_table)
         .add_table(products_table)
         .add_table(order_items_table)
+        .add_table(product_catalog_table)
+        .add_table(product_catalog_staging_table)
+        .add_table(sales_table)
         .with_builtin_functions(builtin_opts)
         .build()
     )
