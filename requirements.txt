@@ -1,1 +1,1 @@
-zetasql==0.1.4
+zetasql==0.1.5
