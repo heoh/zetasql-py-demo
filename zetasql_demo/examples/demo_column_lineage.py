@@ -4,6 +4,16 @@ Demonstrates extracting column-level lineage from various SQL statements.
 Python port of ExtractColumnLevelLineage.java from zetasql-toolkit.
 """
 
+import os
+import sys
+
+# Ensure the project `src` directory is on sys.path so `zetasql_demo` imports work
+# This allows running the example directly (e.g. `python zetasql_demo/examples/demo_column_lineage.py`).
+_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+_SRC_DIR = os.path.abspath(os.path.join(_THIS_DIR, '..', '..'))
+if _SRC_DIR not in sys.path:
+    sys.path.insert(0, _SRC_DIR)
+
 from zetasql.api import Analyzer
 from zetasql.types import AnalyzerOptions
 
